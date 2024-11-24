@@ -8,32 +8,41 @@
     </div>
   </div>
 
-  <div *ngIf="filme && filme.Response != 'False' && !showFavoritos" class="filme-card">
-    <div class="filme-header">
-      <img [src]="filme.Poster" alt="Pôster do filme" class="filme-poster" />
-      <div class="filme-info">
-        <h2>{{ filme.Title }}</h2>
-        <p><strong>Ano:</strong> {{ filme.Year }}</p>
-        <p><strong>Gênero:</strong> {{ filme.Genre }}</p>
-        <p><strong>Diretor:</strong> {{ filme.Director }}</p>
-        <p><strong>Elenco:</strong> {{ filme.Actors }}</p>
-        <p><strong>Enredo:</strong> {{ filme.Plot }}</p>
+  @if (filme && filme.Response != 'False' && !showFavoritos){
+    <div class="filme-card">
+      <div class="filme-header">
+        <img [src]="filme.Poster" alt="Pôster do filme" class="filme-poster" />
+        <div class="filme-info">
+          <h2>{{ filme.Title }}</h2>
+          <p><strong>Ano:</strong> {{ filme.Year }}</p>
+          <p><strong>Gênero:</strong> {{ filme.Genre }}</p>
+          <p><strong>Diretor:</strong> {{ filme.Director }}</p>
+          <p><strong>Elenco:</strong> {{ filme.Actors }}</p>
+          <p><strong>Enredo:</strong> {{ filme.Plot }}</p>
+        </div>
+      </div>
+
+      <div class="button-container">
+        <button (click)="favoritarFilme()">⭐ Favoritar</button>
+        <button (click)="desfavoritarFilme()">❌ Remover</button>
       </div>
     </div>
-    <div class="button-container">
-      <button (click)="favoritarFilme()">⭐ Favoritar</button>
-      <button (click)="desfavoritarFilme()">❌ Remover</button>
-    </div>
-  </div>
+  }
 
-  <div *ngIf="filme?.Response === 'False' && !showFavoritos" class="no-filme-message">
-    <p>😢 Filme/série não encontrado. Tente novamente.</p>
-  </div>
-
-  <div *ngIf="showFavoritos" class="favoritos-section">
-    <h2>❤️ Favoritos</h2>
-    <div *ngFor="let filme of favoritosList" class="favorito-card" (click)="selectFilmeFavorito(filme)">
-      {{ filme }}
+  @if (filme?.Response === 'False' && !showFavoritos){
+    <div class="no-filme-message">
+      <p>😢 Filme/série não encontrado. Tente novamente.</p>
     </div>
-  </div>
+  }
+
+  @if (showFavoritos){
+    <div class="favoritos-section">
+      <h2>❤️ Favoritos</h2>
+      @for(filme of favoritosList; track filme){
+        <div class="favorito-card" (click)="selectFilmeFavorito(filme)">
+          {{ filme }}
+        </div>
+      }
+    </div>
+  }
 </div>

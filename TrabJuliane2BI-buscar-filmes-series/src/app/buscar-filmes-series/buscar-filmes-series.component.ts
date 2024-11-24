@@ -5,6 +5,7 @@ import {buscarFilmesSeriesService} from './buscar-filmes-series.service';
 import {Filme} from './buscar-filmes-series.model';
 import {FormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import {of} from 'rxjs';
 @Component({
   selector: 'app-buscar-filmes-series',
   standalone: true,
@@ -79,6 +80,8 @@ export class BuscarFilmesSeriesComponent {
     this.pesquisarFilme()
     this.showFavoritos = false;
   }
+
+  protected readonly of = of;
 }
 
 
